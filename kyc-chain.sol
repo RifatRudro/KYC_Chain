@@ -27,6 +27,8 @@ contract ThreeBankSystem {
     event AccountCreated(address bank, address accountAddress);
     event Transfer(address from, address to, uint256 amount);
     event Deposit(address account, uint256 amount);
+    uint256 public totalTransactions; // Total number of transactions
+    uint256 public successfulTransactions; // Number of successful transactions
 
     constructor(address _privateBank, address _centralBank) {
         publicBank = msg.sender;
@@ -81,6 +83,8 @@ function transfer(address fromBank, address toBank, address to, uint256 amount) 
     
     // Record transaction details for sender's account
     accountTransactions[msg.sender].push(Transaction(msg.sender, to, amount, block.timestamp, fromBank, toBank));
+    totalTransactions++;
+    successfulTransactions++;
 }
 
 
